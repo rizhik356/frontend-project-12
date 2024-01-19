@@ -1,11 +1,17 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import routes from '../routes';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import MainForm from './MainForm';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { actions as channelsAction } from '../slices/channelsSlice';
 
 const Main = () => {
+    const dispatch = useDispatch();
+    const channels = useSelector((state) => state.channelsReducer.channels);
+    const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
+  //  const [status, changeStatus] = useState('')
+
     const getAuthHeader = () => {
         const userId = JSON.parse(localStorage.getItem('userId'));
       
@@ -18,11 +24,20 @@ const Main = () => {
 
     useEffect (() => {
         const requestData = async () => {
+            try {
                 const responce = await axios.get(routes.getChannels(), { headers: getAuthHeader() });
-                  console.log(responce.data);
+                dispatch(channelsAction.initChannels(responce.data));
+            } catch (e) {
+                throw new Error(e)
+            }
         }
         requestData()
-    })
+    }, [dispatch]);
+
+    const handleClick = (id) => () => {
+        dispatch(channelsAction.changeCurrentId({currentChannelId: id}));
+    };
+    
 
     return (
         <Container className='h-100 my-4 overflow-hidden rounded shadow'>
@@ -38,7 +53,21 @@ const Main = () => {
                             <span className='visually-hidden'></span>
                         </Button>
                     </div>
-                    <ul id="channels-box" className='nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block'></ul>
+                    <ul id="channels-box" className='nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block'>
+                    {channels.map((item) => {
+                        return (
+                            <li key={item.id} className='nav-item w-100'>
+                                <Button type='button'
+                                 onClick={handleClick(item.id)}
+                                 variant={item.id === currentChannelId ? 'success' : false}
+                                 className='w-100 rounded-0 text-start btn'>
+                                 <span className='me-1'>#</span>
+                                 {item.name}
+                                </Button>
+                            </li>
+                        )
+                    })}
+                    </ul>
                 </Col>
                 <Col className='p-0 h-100'>
                     <div className='d-flex flex-column h-100'>

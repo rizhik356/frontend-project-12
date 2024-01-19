@@ -19,6 +19,8 @@ const MainForm = () => {
                 aria-label="Новое сообщение"
                 className="border-0 p-1 ps-2"
                 name="body"
+                onChange={formik.handleChange}
+                value={formik.values.body}
             />
             <Button className="text-success" variant="group-vertical">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">

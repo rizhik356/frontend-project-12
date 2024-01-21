@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Card, Col, Image } from 'react-bootstrap';
-import LoginForm from './LoginForm';
+import LoginForm from '../forms/LoginForm';
 
 const Login = () => (
   <Container fluid className="h-100">

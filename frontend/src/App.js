@@ -1,9 +1,9 @@
 import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
-import Login from './Components/Login';
-import Main from './Components/Main';
-import Page404 from './Components/Page404';
+import Login from './Components/pages/LoginPage';
+import Main from './Components/pages/MainPage';
+import Page404 from './Components/pages/Page404';
 import AuthContext from './contexts';
 import useAuth from './hooks';
 import { Button, Navbar, Container } from 'react-bootstrap';

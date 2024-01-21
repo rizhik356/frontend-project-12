@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from "formik";
 import { Form, FloatingLabel, Button } from "react-bootstrap";
-import routes from "../routes";
+import routes from "../../routes";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../hooks';
+import useAuth from '../../hooks';
 
 
 const LoginForm = () => {
     const [authFailed, setAuthFailed] = useState(false);
+    const [btnDisabled, setBtnDisabled] = useState(false);
     const navigate = useNavigate();
     const auth = useAuth();
     const inputRef = useRef();
@@ -24,9 +25,10 @@ const LoginForm = () => {
       },
       onSubmit: async (values) => {
         setAuthFailed(false);
+        setBtnDisabled(true);
         try {
             const responce = await axios.post(routes.loginPath(), {
-                username: values.username.trim(),
+                username: values.username.trim().toLocaleLowerCase(),
                 password: values.password.trim(),
             })
             localStorage.setItem('userId', JSON.stringify(responce.data));
@@ -36,11 +38,12 @@ const LoginForm = () => {
             formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
+          setBtnDisabled(false);
           inputRef.current.select();
           return;
         }
         throw err;
-        }
+        };
       }
     });
   
@@ -79,7 +82,7 @@ const LoginForm = () => {
           />
           <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
         </FloatingLabel>
-        <Button variant="success" type="submit">
+        <Button disabled={btnDisabled} variant="success" type="submit">
           Войти
         </Button>
       </Form>

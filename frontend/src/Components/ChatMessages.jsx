@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Col } from "react-bootstrap";
 import MessagesForm from "./forms/MessagesForm";
-
 
 const ChatMessages = ({ props }) => {
     const { currentChannelId, channels } = props;
     const messages = useSelector((state) => state.messagesReducer.messages);
     const filter = messages.filter(({ channelId }) => channelId === currentChannelId);
     const currentChannelName = channels.find(({ id }) => id === currentChannelId) || '';
+    const messagesEndRef = useRef(null);
+  
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+      }, [filter]); 
 
 return (
     <Col className='p-0 h-100'>
@@ -22,7 +28,7 @@ return (
             <div className="chat-messages overflow-auto px-5 ">
                 {filter.map(({ body, username, id }) => {
                     return (
-                        <div key={id} className="mb-2 text-break">
+                        <div key={id} ref={messagesEndRef} className="mb-2 text-break">
                             <b>{username}</b>
                             {': '} 
                             {body}

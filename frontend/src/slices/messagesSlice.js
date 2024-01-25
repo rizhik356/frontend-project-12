@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = {
     messages: [],
@@ -10,6 +10,10 @@ const initialState = {
     reducers: {
         initMessages: (state, { payload }) => {
             state.messages = payload.messages;
+        },
+        addMessage: (state, { payload }) => {
+          state.messages.push(payload);
+          console.log(current(state))
         },
     }
   });

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import routes from '../../routes';
 import { Container, Row, Col, Button} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,10 +15,6 @@ const Main = () => {
     const localStorageParse = (id) =>  JSON.parse(localStorage.getItem(id));
     const username = localStorageParse('userId').username;
     const props = { channels, currentChannelId, username, }
-
-
-  //  const [status, changeStatus] = useState('')
-
 
     const getAuthHeader = useCallback(() => {
         const userId = localStorageParse('userId');

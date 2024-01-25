@@ -7,6 +7,7 @@ import Page404 from './Components/pages/Page404';
 import AuthContext from './contexts';
 import useAuth from './hooks';
 import { Button, Navbar, Container } from 'react-bootstrap';
+import useInitSocket from './hooks/useInitSocket';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -47,29 +48,28 @@ const AuthButton = () => {
 };
 
 function App() {
+  useInitSocket();
   return (
     <>
       <div className='d-flex flex-column h-100'>
         <AuthProvider>
-      <BrowserRouter>
-        <Navbar bg="light" expand="lg">
-          <Container>
-            <Navbar.Brand as={Link} to="/">TIGRA Chat</Navbar.Brand>
-            <AuthButton />
-          </Container>
-        </Navbar>
-
-        <Routes>
-          <Route path='*' element={<Page404 />} />
-          <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
-          <Route path="login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
+          <BrowserRouter>
+            <Navbar bg="light" expand="lg">
+              <Container>
+                <Navbar.Brand as={Link} to="/">TIGRA Chat</Navbar.Brand>
+                <AuthButton />
+              </Container>
+            </Navbar>
+            <Routes>
+              <Route path='*' element={<Page404 />} />
+              <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
+              <Route path="login" element={<Login />} />
+            </Routes>
+          </BrowserRouter>
       </AuthProvider>
       </div>
       <div className='Toastify'></div>
     </>
-    
   );
 }
 

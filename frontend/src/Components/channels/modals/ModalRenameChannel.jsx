@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import socket from "../../../services";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const ModalRenameChannel = (props) => {
 
@@ -41,15 +42,32 @@ const ModalRenameChannel = (props) => {
         validationSchema: AddChannelSchema,
         validateOnChange: false,
         validateOnBlur:false,
-        onSubmit: ({ name }) => {
+        onSubmit: async ({ name }) => {
             setDisable(true);
-            socket.timeout(3000).emit('renameChannel', 
+            const id = toast.loading("Загрузка...");
+            await socket.timeout(3000).emit('renameChannel', 
             { ...item, name },
             (err) => {
                 if (err) {
                     setDisable(false);
+                    toast.update(id, 
+                      {
+                        render: "Не удалось переименовать канал", 
+                        type: "error", 
+                        isLoading: false, 
+                        autoClose: 3000, 
+                      }
+                    );
                 } else {
                     handleClose();
+                    toast.update(id, 
+                      {
+                        render: "Канал переименован", 
+                        type: "success", 
+                        isLoading: false, 
+                        autoClose: 5000, 
+                      }
+                    ); 
                 }
             }
             );

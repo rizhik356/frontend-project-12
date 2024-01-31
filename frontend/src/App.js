@@ -8,6 +8,7 @@ import AuthContext from './contexts';
 import useAuth from './hooks';
 import { Button, Navbar, Container } from 'react-bootstrap';
 import useInitSocket from './hooks/useInitSocket';
+import { ToastContainer } from 'react-toastify';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -68,7 +69,7 @@ function App() {
           </BrowserRouter>
       </AuthProvider>
       </div>
-      <div className='Toastify'></div>
+      <ToastContainer />
     </>
   );
 }

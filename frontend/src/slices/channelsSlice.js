@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = {
     channels: [],
@@ -14,7 +14,16 @@ const initialState = {
         },
         changeCurrentId: (state, { payload }) => {
             state.currentChannelId = payload.currentChannelId;
-        }
+        },
+        addChannel: (state, { payload }) => {
+            state.channels.push( payload );
+        },
+        renameChannel: (state, { payload }) => {
+            state.channels.find((channel) => channel.id === payload.id).name = payload.name;
+        },
+        removeChannel: (state, { payload }) => {
+            state.channels = state.channels.filter((channel) => channel.id !== payload.id);
+        },
     }
   });
 

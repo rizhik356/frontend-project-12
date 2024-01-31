@@ -27,7 +27,6 @@ const MessagesForm = ({ props }) => {
                     setDisable(false);
                     setInvalid(true);
                 } else {
-                    console.log('+2')
                     setDisable(false);
                     setInvalid(false);
                     formik.resetForm();

@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import socket from "../../../services";
 import { useSelector } from "react-redux";
 import ButtonAddChanel from "../../ButtonAddChanel";
-import { toast } from "react-toastify";
+import Toastify from "../../../services/Toastify";
 
 
 const ModalAddChannel = () => {
@@ -36,31 +36,17 @@ const ModalAddChannel = () => {
         validateOnChange: false,
         validateOnBlur:false,
         onSubmit: async ({ name }) => {
+            const toast = new Toastify();
             setDisable(true);
-            const id = toast.loading("Загрузка...");
             await socket.timeout(3000).emit('newChannel', 
             { name },
             (err) => {
                 if (err) {
                     setDisable(false);
-                    toast.update(id, 
-                      {
-                        render: "Не удалось добавить канал", 
-                        type: "error", 
-                        isLoading: false, 
-                        autoClose: 3000, 
-                      }
-                    );
+                    toast.update('error', 'Не удалось добавить канал');
                 } else {
-                    handleClose();
-                      toast.update(id, 
-                        {
-                          render: "Канал добавлен", 
-                          type: "success", 
-                          isLoading: false, 
-                          autoClose: 5000, 
-                        }
-                      );                  
+                    handleClose();  
+                      toast.update('success', 'Канал добавлен');           
                 };
             }
             );

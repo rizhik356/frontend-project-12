@@ -1,4 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { actions as channelsActions } from './channelsSlice';
 
 const initialState = {
@@ -11,7 +11,6 @@ const initialState = {
     reducers: {
         initMessages: (state, { payload }) => {
             state.messages = payload.messages;
-            console.log(current(state))
         },
         addMessage: (state, { payload }) => {
           state.messages.push(payload);

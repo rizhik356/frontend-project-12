@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import socket from "../../../services";
-import { toast } from "react-toastify";
+import Toastify from "../../../services/Toastify";
 
 const ModalRemoveChannel = (props) => {
     const { onHide, modalInfo } = props;
@@ -12,31 +12,17 @@ const ModalRemoveChannel = (props) => {
 
     const handleRemove = async () => {
         setDisable(true);
-        const status = toast.loading("Загрузка...");
+        const toast = new Toastify();
         await socket.timeout(3000).emit('removeChannel', 
         { id },
         (err) => {
             if (err) {
                 setDisable(false);
-                toast.update(status, 
-                    {
-                      render: "Не удалось удалить канал", 
-                      type: "error", 
-                      isLoading: false, 
-                      autoClose: 3000, 
-                    }
-                  );
+                  toast.update('error', 'Не удалось удалить канал');
             } else {
                 setDisable(false);
                 onHide();
-                toast.update(status, 
-                    {
-                      render: "Канал удален", 
-                      type: "success", 
-                      isLoading: false, 
-                      autoClose: 5000, 
-                    }
-                  ); 
+                  toast.update('success', 'Канал удален');
             }
         }
         );

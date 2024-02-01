@@ -1,14 +1,17 @@
 import './App.css';
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+import React, { useMemo, useState } from 'react';
+import {
+  BrowserRouter, Routes, Route, Navigate, Link,
+} from 'react-router-dom';
+import { Button, Navbar, Container } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 import Login from './Components/pages/LoginPage';
 import Main from './Components/pages/MainPage';
 import Page404 from './Components/pages/Page404';
 import AuthContext from './contexts';
 import useAuth from './hooks';
-import { Button, Navbar, Container } from 'react-bootstrap';
 import useInitSocket from './hooks/useInitSocket';
-import { ToastContainer } from 'react-toastify';
+import SignUpPage from './Components/pages/SignUpPage';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -19,8 +22,10 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
+  const value = useMemo(() => ({ loggedIn, logIn, logOut }), [loggedIn]);
+
   return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
@@ -31,9 +36,9 @@ const PrivateRoute = ({ children }) => {
   const userId = JSON.parse(localStorage.getItem('userId'));
 
   return (
-    auth.loggedIn || (userId && userId.token) 
-    ? children
-    : <Navigate to="/login" />
+    auth.loggedIn || (userId && userId.token)
+      ? children
+      : <Navigate to="/login" />
   );
 };
 
@@ -48,11 +53,11 @@ const AuthButton = () => {
   );
 };
 
-function App() {
+const App = () => {
   useInitSocket();
   return (
     <>
-      <div className='d-flex flex-column h-100'>
+      <div className="d-flex flex-column h-100">
         <AuthProvider>
           <BrowserRouter>
             <Navbar bg="light" expand="lg">
@@ -62,16 +67,17 @@ function App() {
               </Container>
             </Navbar>
             <Routes>
-              <Route path='*' element={<Page404 />} />
+              <Route path="*" element={<Page404 />} />
               <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
               <Route path="login" element={<Login />} />
+              <Route path="signup" element={<SignUpPage />} />
             </Routes>
           </BrowserRouter>
-      </AuthProvider>
+        </AuthProvider>
       </div>
       <ToastContainer />
     </>
   );
-}
+};
 
 export default App;

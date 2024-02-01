@@ -1,9 +1,8 @@
-import socket from "../services";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { actions as messagesActions } from "../slices/messagesSlice";
-import { actions as channelsActions } from "../slices/channelsSlice";
-
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import socket from '../services';
+import { actions as messagesActions } from '../slices/messagesSlice';
+import { actions as channelsActions } from '../slices/channelsSlice';
 
 const useInitSocket = () => {
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ const useInitSocket = () => {
     });
     socket.on('removeChannel', (payload) => {
       dispatch(channelsActions.removeChannel(payload));
-    })
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };

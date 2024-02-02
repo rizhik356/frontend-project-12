@@ -29,7 +29,6 @@ const ModalAddChannel = () => {
     },
     validationSchema: AddChannelSchema,
     validateOnChange: false,
-    validateOnBlur: false,
     onSubmit: async ({ name }) => {
       const toast = new Toastify();
       setDisable(true);

@@ -34,6 +34,7 @@ const RemovableChannel = ({ props }) => {
         className="w-100 text-start text-truncate"
         onClick={handleClick(item.id)}
       >
+        <span className="me-1">#</span>
         {item.name}
       </Button>
       <Dropdown.Toggle split variant={setVariant('secondary')} id="dropdown-split-basic" />

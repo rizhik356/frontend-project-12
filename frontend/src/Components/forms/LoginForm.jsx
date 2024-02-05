@@ -3,10 +3,12 @@ import { useFormik } from 'formik';
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import routes from '../../routes';
 import useAuth from '../../hooks';
 
 const LoginForm = () => {
+  const { t } = useTranslation();
   const [authFailed, setAuthFailed] = useState(false);
   const [btnDisabled, setBtnDisabled] = useState(false);
   const navigate = useNavigate();
@@ -48,14 +50,14 @@ const LoginForm = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-      <h1 className="text-center mb-4">Войти</h1>
+      <h1 className="text-center mb-4">{t('services.logIn')}</h1>
       <FloatingLabel
         controlId="username"
-        label="Ваш ник"
+        label={t('services.username')}
         className="mb-3"
       >
         <Form.Control
-          placeholder="Ваш ник"
+          placeholder={t('services.username')}
           autoComplete="username"
           name="username"
           value={formik.values.username}
@@ -67,11 +69,11 @@ const LoginForm = () => {
 
       <FloatingLabel
         controlId="password"
-        label="Пароль"
+        label={t('services.password')}
         className="mb-4"
       >
         <Form.Control
-          placeholder="Пароль"
+          placeholder={t('services.password')}
           type="password"
           autoComplete="password"
           name="password"
@@ -79,10 +81,10 @@ const LoginForm = () => {
           onChange={formik.handleChange}
           isInvalid={authFailed}
         />
-        <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">{t('errors.invalidUserData')}</Form.Control.Feedback>
       </FloatingLabel>
       <Button disabled={btnDisabled} variant="success" type="submit">
-        Войти
+        {t('services.logIn')}
       </Button>
     </Form>
   );

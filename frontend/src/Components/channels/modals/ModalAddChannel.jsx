@@ -3,12 +3,14 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import socket from '../../../services';
 import ButtonAddChanel from '../../ButtonAddChanel';
 import Toastify from '../../../services/Toastify';
 
 const ModalAddChannel = () => {
   const channels = useSelector((state) => state.channelsReducer.channels);
+  const { t } = useTranslation();
 
   const [show, setShow] = useState(false);
   const [isDisable, setDisable] = useState(false);
@@ -17,10 +19,10 @@ const ModalAddChannel = () => {
 
   const AddChannelSchema = Yup.object().shape({
     name: Yup.string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .required('Обязательное поле')
-      .test('unique', 'Должно быть уникальным', (value) => !channels.some((channel) => channel.name === value)),
+      .min(3, t('errors.length'))
+      .max(20, t('errors.length'))
+      .required(t('errors.required'))
+      .test('unique', t('errors.unique'), (value) => !channels.some((channel) => channel.name === value)),
   });
 
   const formik = useFormik({
@@ -38,11 +40,11 @@ const ModalAddChannel = () => {
         (err) => {
           if (err) {
             setDisable(false);
-            toast.update('error', 'Не удалось добавить канал');
+            toast.update('error', t('errors.add'));
           } else {
             // eslint-disable-next-line no-use-before-define
             handleClose();
-            toast.update('success', 'Канал добавлен');
+            toast.update('success', t('modals.addSuccess'));
           }
         },
       );
@@ -60,7 +62,7 @@ const ModalAddChannel = () => {
       <ButtonAddChanel handleShow={handleShow} />
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Добавить канал</Modal.Title>
+          <Modal.Title>{t('modals.addChannel')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>
@@ -82,10 +84,10 @@ const ModalAddChannel = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Отменить
+            {t('services.cancel')}
           </Button>
           <Button variant="success" disabled={isDisable} onClick={formik.handleSubmit}>
-            {isDisable ? 'Отправка...' : 'Отправить'}
+            {isDisable ? t('services.sending') : t('services.send')}
           </Button>
         </Modal.Footer>
       </Modal>

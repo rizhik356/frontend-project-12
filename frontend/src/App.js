@@ -10,7 +10,6 @@ import Main from './Components/pages/MainPage';
 import Page404 from './Components/pages/Page404';
 import AuthContext from './contexts';
 import useAuth from './hooks';
-import useInitSocket from './hooks/useInitSocket';
 import SignUpPage from './Components/pages/SignUpPage';
 
 const AuthProvider = ({ children }) => {
@@ -53,31 +52,28 @@ const AuthButton = () => {
   );
 };
 
-const App = () => {
-  useInitSocket();
-  return (
-    <>
-      <div className="d-flex flex-column h-100">
-        <AuthProvider>
-          <BrowserRouter>
-            <Navbar bg="light" expand="lg">
-              <Container>
-                <Navbar.Brand as={Link} to="/">TIGRA Chat</Navbar.Brand>
-                <AuthButton />
-              </Container>
-            </Navbar>
-            <Routes>
-              <Route path="*" element={<Page404 />} />
-              <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
-              <Route path="login" element={<Login />} />
-              <Route path="signup" element={<SignUpPage />} />
-            </Routes>
-          </BrowserRouter>
-        </AuthProvider>
-      </div>
-      <ToastContainer />
-    </>
-  );
-};
+const App = () => (
+  <>
+    <div className="d-flex flex-column h-100">
+      <AuthProvider>
+        <BrowserRouter>
+          <Navbar bg="light" expand="lg">
+            <Container>
+              <Navbar.Brand as={Link} to="/">TIGRA Chat</Navbar.Brand>
+              <AuthButton />
+            </Container>
+          </Navbar>
+          <Routes>
+            <Route path="*" element={<Page404 />} />
+            <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUpPage />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </div>
+    <ToastContainer />
+  </>
+);
 
 export default App;

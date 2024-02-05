@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import socket from '../../../services';
 import Toastify from '../../../services/Toastify';
 
 const ModalRemoveChannel = (props) => {
+  const { t } = useTranslation();
   const { onHide, modalInfo } = props;
   const { item } = modalInfo;
   const { id } = item;
@@ -18,11 +20,11 @@ const ModalRemoveChannel = (props) => {
       (err) => {
         if (err) {
           setDisable(false);
-          toast.update('error', 'Не удалось удалить канал');
+          toast.update('error', t('errors.remove'));
         } else {
           setDisable(false);
           onHide();
-          toast.update('success', 'Канал удален');
+          toast.update('success', t('modals.removeSuccess'));
         }
       },
     );
@@ -36,17 +38,21 @@ const ModalRemoveChannel = (props) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('modals.removeChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="lead">Уверены?</p>
+        <p className="lead">{t('services.confirm')}</p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
-          Отменить
+          {t('services.cancel')}
         </Button>
-        <Button disabled={disable} variant="danger" onClick={handleRemove}>
-          Удалить
+        <Button
+          disabled={disable}
+          variant="danger"
+          onClick={handleRemove}
+        >
+          {t('services.remove')}
         </Button>
       </Modal.Footer>
     </Modal>

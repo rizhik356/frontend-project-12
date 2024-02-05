@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useCallback } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import routes from '../../routes';
 import { actions as channelsAction } from '../../slices/channelsSlice';
 import { actions as messagesAction } from '../../slices/messagesSlice';
@@ -10,6 +11,7 @@ import ChatMessages from '../ChatMessages';
 import ModalAddChannel from '../channels/modals/ModalAddChannel';
 
 const Main = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const channels = useSelector((state) => state.channelsReducer.channels);
   const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
@@ -45,7 +47,7 @@ const Main = () => {
       <Row className="h-100 bg-white flex-md-row">
         <Col md={2} className="col-4 border-end px-0 bg-light flex-column h-100 d-flex">
           <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-            <b>Каналы</b>
+            <b>{t('services.channels')}</b>
             <ModalAddChannel />
           </div>
           <ChannelsList props={props} />

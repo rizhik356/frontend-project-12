@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, InputGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import socket from '../../services';
 
 const MessagesForm = ({ props }) => {
+  const { t } = useTranslation();
   const inputRef = useRef();
   const { currentChannelId, username } = props;
   const [isDisable, setDisable] = useState(false);
@@ -39,8 +41,8 @@ const MessagesForm = ({ props }) => {
     <Form noValidate className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
       <InputGroup className="has-validation">
         <Form.Control
-          placeholder="Введите сообщение..."
-          aria-label="Новое сообщение"
+          placeholder={t('messages.enterMessage')}
+          aria-label={t('messages.newMessage')}
           className="border-0 p-1 ps-2"
           name="body"
           disabled={isDisable}

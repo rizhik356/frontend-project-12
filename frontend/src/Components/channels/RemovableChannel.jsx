@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { actions as channelsAction } from '../../slices/channelsSlice';
 import getModal from './modals';
 
 const RemovableChannel = ({ props }) => {
   const { item, currentChannelId } = props;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const hideModal = () => setModalInfo({ type: null, item: null });
@@ -39,8 +41,8 @@ const RemovableChannel = ({ props }) => {
       </Button>
       <Dropdown.Toggle split variant={setVariant('secondary')} id="dropdown-split-basic" />
       <Dropdown.Menu>
-        <Dropdown.Item href="#" onClick={() => showModal('removing', item)}>Удалить</Dropdown.Item>
-        <Dropdown.Item href="#" onClick={() => showModal('renaming', item)}>Переименовать</Dropdown.Item>
+        <Dropdown.Item href="#" onClick={() => showModal('removing', item)}>{t('services.remove')}</Dropdown.Item>
+        <Dropdown.Item href="#" onClick={() => showModal('renaming', item)}>{t('services.rename')}</Dropdown.Item>
         {renderModal({ modalInfo, hideModal })}
       </Dropdown.Menu>
     </Dropdown>

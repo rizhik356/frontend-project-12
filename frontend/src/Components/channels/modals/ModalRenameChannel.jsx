@@ -3,10 +3,12 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import socket from '../../../services';
 import Toastify from '../../../services/Toastify';
 
 const ModalRenameChannel = (props) => {
+  const { t } = useTranslation();
   const channels = useSelector((state) => state.channelsReducer.channels);
   const { onHide, modalInfo } = props;
   const { item } = modalInfo;
@@ -24,10 +26,10 @@ const ModalRenameChannel = (props) => {
 
   const AddChannelSchema = Yup.object().shape({
     name: Yup.string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .required('Обязательное поле')
-      .test('unique', 'Должно быть уникальным', (value) => !channels.some((channel) => channel.name === value)),
+      .min(3, t('errors.length'))
+      .max(20, t('errors.length'))
+      .required(t('errors.required'))
+      .test('unique', t('errors.unique'), (value) => !channels.some((channel) => channel.name === value)),
   });
 
   const formik = useFormik({
@@ -46,10 +48,10 @@ const ModalRenameChannel = (props) => {
         (err) => {
           if (err) {
             setDisable(false);
-            toast.update('error', 'Не удалось переименовать канал');
+            toast.update('error', t('errors.rename'));
           } else {
             onHide();
-            toast.update('success', 'Канал переименован');
+            toast.update('success', t('modals.renameSuccess'));
           }
         },
       );
@@ -59,7 +61,7 @@ const ModalRenameChannel = (props) => {
   return (
     <Modal show onHide={onHide} animation={false}>
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modals.renameChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -81,10 +83,10 @@ const ModalRenameChannel = (props) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
-          Отменить
+          {t('services.cancel')}
         </Button>
         <Button variant="success" disabled={isDisable} onClick={formik.handleSubmit}>
-          {isDisable ? 'Отправка...' : 'Отправить'}
+          {isDisable ? t('services.sending') : t('services.send')}
         </Button>
       </Modal.Footer>
     </Modal>

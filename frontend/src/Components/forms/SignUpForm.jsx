@@ -4,21 +4,23 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import routes from '../../routes';
 import useAuth from '../../hooks';
 
 const SignUpForm = () => {
+  const { t } = useTranslation();
   const [isDisable, setDisable] = useState(false);
   const navigate = useNavigate();
   const auth = useAuth();
   const signUpSchema = Yup.object().shape({
     username: Yup.string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов'),
+      .min(3, t('errors.length'))
+      .max(20, t('errors.length')),
     password: Yup.string()
-      .min(6, 'Не менее 6 символов'),
+      .min(6, t('errors.passwordLength')),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
+      .oneOf([Yup.ref('password'), null], t('errors.passwordMatch')),
   });
 
   const formik = useFormik({
@@ -39,22 +41,22 @@ const SignUpForm = () => {
       } catch (err) {
         setDisable(false);
         if (err.isAxiosError && err.response.status === 409) {
-          formik.errors.username = 'Данное существо уже есть';
+          formik.errors.username = t('errors.userUnique');
         }
       }
     },
   });
 
   return (
-    <Form className="w-50" onSubmit={formik.handleSubmit}>
-      <h1 className="text-center mb-4">Регистрация</h1>
+    <Form className="col-12 col-md-6" onSubmit={formik.handleSubmit}>
+      <h1 className="text-center mb-4">{t('services.registration')}</h1>
       <FloatingLabel
         controlId="username"
-        label="Имя пользователя"
+        label={t('services.username')}
         className="mb-3 "
       >
         <Form.Control
-          placeholder="От 3 до 20 символов"
+          placeholder={t('errors.length')}
           type="username"
           autoComplete="username"
           name="username"
@@ -72,11 +74,11 @@ const SignUpForm = () => {
       </FloatingLabel>
       <FloatingLabel
         controlId="password"
-        label="Пароль"
+        label={t('services.password')}
         className="mb-3 "
       >
         <Form.Control
-          placeholder="Не менее 6 символов"
+          placeholder={t('errors.passwordLength')}
           type="password"
           autoComplete="new-password"
           name="password"
@@ -94,11 +96,11 @@ const SignUpForm = () => {
       </FloatingLabel>
       <FloatingLabel
         controlId="confirmPassword"
-        label="Подтвердите пароль"
+        label={t('services.handlePasswordConfirm')}
         className="mb-4"
       >
         <Form.Control
-          placeholder="Пароли должны совпадать"
+          placeholder={t('errors.passwordMatch')}
           type="password"
           autoComplete="new-password"
           name="confirmPassword"
@@ -119,7 +121,7 @@ const SignUpForm = () => {
         className="w-75 mx-auto d-block"
         variant="outline-success"
       >
-        Зарегистрироваться
+        {t('services.toRegistrate')}
       </Button>
     </Form>
   );

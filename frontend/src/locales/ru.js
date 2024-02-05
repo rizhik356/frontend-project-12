@@ -44,6 +44,7 @@ export default {
       password: 'Пароль',
       handlePasswordConfirm: 'Подтвердите пароль',
       username: 'Имя пользователя',
+      addChannelSymbol: '+',
     },
     messages: {
       counter: {

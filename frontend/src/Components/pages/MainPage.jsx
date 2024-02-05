@@ -1,14 +1,15 @@
 import axios from 'axios';
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import routes from '../../routes';
 import { actions as channelsAction } from '../../slices/channelsSlice';
 import { actions as messagesAction } from '../../slices/messagesSlice';
-import ChannelsList from '../ChannelsList';
-import ChatMessages from '../ChatMessages';
+import ChannelsList from '../channels/ChannelsList';
+import ChatMessages from '../messages/ChatMessages';
 import ModalAddChannel from '../channels/modals/ModalAddChannel';
+import Loader from './Loader';
 
 const Main = () => {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ const Main = () => {
   const localStorageParse = (id) => JSON.parse(localStorage.getItem(id));
   const { username } = localStorageParse('userId');
   const props = { channels, currentChannelId, username };
+  const [isLoading, setLoading] = useState(true);
 
   const getAuthHeader = useCallback(() => {
     const userId = localStorageParse('userId');
@@ -35,6 +37,7 @@ const Main = () => {
         const responce = await axios.get(routes.getChannels(), { headers: getAuthHeader() });
         dispatch(channelsAction.initChannels(responce.data));
         dispatch(messagesAction.initMessages(responce.data));
+        setLoading(false);
       } catch (e) {
         throw new Error(e);
       }
@@ -42,7 +45,7 @@ const Main = () => {
     requestData();
   }, [dispatch, getAuthHeader]);
 
-  return (
+  const vdom = (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
       <Row className="h-100 bg-white flex-md-row">
         <Col md={2} className="col-4 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -56,6 +59,7 @@ const Main = () => {
       </Row>
     </Container>
   );
+  return isLoading ? <Loader /> : vdom;
 };
 
 export default Main;

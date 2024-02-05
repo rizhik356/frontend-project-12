@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { ListGroup } from 'react-bootstrap';
-import DefaultChannel from './channels/DefaultChannel';
-import RemovableChannel from './channels/RemovableChannel';
+import DefaultChannel from './DefaultChannel';
+import RemovableChannel from './RemovableChannel';
 
 const ChannelsList = ({ props }) => {
   const { channels, currentChannelId } = props;

@@ -52,7 +52,7 @@ const MessagesForm = ({ props }) => {
           isInvalid={isInvalid}
         />
         <Button
-          className="text-success"
+          className="text-success border-0"
           type="submit"
           disabled={!(formik.values.body.length > 0)}
           variant="group-vertical"

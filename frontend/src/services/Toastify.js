@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 
 export default class Toastify {
-  constructor() {
-    this.toast = toast.loading('Загрузка...');
+  constructor(name) {
+    this.toast = toast.loading(name);
   }
 
   update(type, render) {

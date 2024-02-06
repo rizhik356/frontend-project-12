@@ -41,7 +41,7 @@ const ModalRenameChannel = (props) => {
     validateOnBlur: false,
     onSubmit: async ({ name }) => {
       setDisable(true);
-      const toast = new Toastify();
+      const toast = new Toastify(t('services.loading'));
       await socket.timeout(3000).emit(
         'renameChannel',
         { ...item, name },

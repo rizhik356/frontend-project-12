@@ -32,7 +32,7 @@ const ModalAddChannel = () => {
     validationSchema: AddChannelSchema,
     validateOnChange: false,
     onSubmit: async ({ name }) => {
-      const toast = new Toastify();
+      const toast = new Toastify(t('services.loading'));
       setDisable(true);
       await socket.timeout(3000).emit(
         'newChannel',

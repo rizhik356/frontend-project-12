@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { actions as channelsAction } from '../../slices/channelsSlice';
 import getModal from './modals';
+import leoProfanity from '../../leoProfanity';
 
 const RemovableChannel = ({ props }) => {
   const { item, currentChannelId } = props;
@@ -36,9 +37,10 @@ const RemovableChannel = ({ props }) => {
         className="w-100 text-start text-truncate"
         onClick={handleClick(item.id)}
       >
-        <span className="me-1">#</span>
-        {item.name}
+        <span className="me-1">{t('services.channelSymbol')}</span>
+        {leoProfanity(item.name)}
       </Button>
+      <span className="visually-hidden">{t('services.editChannel')}</span>
       <Dropdown.Toggle split variant={setVariant('secondary')} id="dropdown-split-basic" />
       <Dropdown.Menu>
         <Dropdown.Item href="#" onClick={() => showModal('removing', item)}>{t('services.remove')}</Dropdown.Item>

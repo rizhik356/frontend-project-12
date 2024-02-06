@@ -15,6 +15,7 @@ export default {
       passwordMatch: 'Пароли должны совпадать',
       userUnique: 'Такой пользователь уже существует',
       invalidUserData: 'Неверные имя пользователя или пароль',
+      network: 'Ошибка соединения',
     },
     modals: {
       addChannel: 'Добавить канал',
@@ -45,6 +46,9 @@ export default {
       handlePasswordConfirm: 'Подтвердите пароль',
       username: 'Имя пользователя',
       addChannelSymbol: '+',
+      nickname: 'Ваш ник',
+      editChannel: 'Управление каналом',
+      loading: 'Загрузка...',
     },
     messages: {
       counter: {

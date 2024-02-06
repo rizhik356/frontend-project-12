@@ -4,6 +4,7 @@ import { Form, FloatingLabel, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import routes from '../../routes';
 import useAuth from '../../hooks';
 
@@ -36,14 +37,13 @@ const LoginForm = () => {
         auth.logIn();
         navigate('/');
       } catch (err) {
-        formik.setSubmitting(false);
-        if (err.isAxiosError && err.response.status === 401) {
+        setBtnDisabled(false);
+        inputRef.current.select();
+        if (err.isAxiosError && err.message === 'Network Error') {
+          toast.error(t('errors.network'));
+        } else if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
-          setBtnDisabled(false);
-          inputRef.current.select();
-          return;
         }
-        throw err;
       }
     },
   });
@@ -53,11 +53,11 @@ const LoginForm = () => {
       <h1 className="text-center mb-4">{t('services.logIn')}</h1>
       <FloatingLabel
         controlId="username"
-        label={t('services.username')}
+        label={t('services.nickname')}
         className="mb-3"
       >
         <Form.Control
-          placeholder={t('services.username')}
+          placeholder={t('services.nickname')}
           autoComplete="username"
           name="username"
           value={formik.values.username}

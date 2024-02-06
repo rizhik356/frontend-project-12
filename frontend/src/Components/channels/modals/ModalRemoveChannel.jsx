@@ -13,7 +13,7 @@ const ModalRemoveChannel = (props) => {
 
   const handleRemove = async () => {
     setDisable(true);
-    const toast = new Toastify();
+    const toast = new Toastify(t('services.loading'));
     await socket.timeout(3000).emit(
       'removeChannel',
       { id },

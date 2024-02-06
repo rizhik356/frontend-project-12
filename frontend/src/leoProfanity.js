@@ -4,6 +4,6 @@ filter.add(filter.getDictionary('en'));
 filter.add(filter.getDictionary('fr'));
 filter.add(filter.getDictionary('ru'));
 
-const leoProfanity = (str) => filter.clean(str);
+const leoProfanity = (str) => filter.clean(str, '*', 1);
 
 export default leoProfanity;

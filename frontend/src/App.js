@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import { Button, Navbar, Container } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
+import { Provider, ErrorBoundary } from '@rollbar/react';
 import Login from './Components/pages/LoginPage';
 import Main from './Components/pages/MainPage';
 import Page404 from './Components/pages/Page404';
@@ -52,28 +53,35 @@ const AuthButton = () => {
   );
 };
 
+const rollbarConfig = {
+  accessToken: 'afe67942c19341b9962b20363e2fc103',
+  environment: 'testenv',
+};
+
 const App = () => (
-  <>
-    <div className="d-flex flex-column h-100">
-      <AuthProvider>
-        <BrowserRouter>
-          <Navbar bg="light" expand="lg">
-            <Container>
-              <Navbar.Brand as={Link} to="/">TIGRA Chat</Navbar.Brand>
-              <AuthButton />
-            </Container>
-          </Navbar>
-          <Routes>
-            <Route path="*" element={<Page404 />} />
-            <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<SignUpPage />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
-    </div>
-    <ToastContainer />
-  </>
+  <Provider config={rollbarConfig}>
+    <ErrorBoundary>
+      <div className="d-flex flex-column h-100">
+        <AuthProvider>
+          <BrowserRouter>
+            <Navbar bg="light" expand="lg">
+              <Container>
+                <Navbar.Brand as={Link} to="/">TIGRA Chat</Navbar.Brand>
+                <AuthButton />
+              </Container>
+            </Navbar>
+            <Routes>
+              <Route path="*" element={<Page404 />} />
+              <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<SignUpPage />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
+      </div>
+      <ToastContainer />
+    </ErrorBoundary>
+  </Provider>
 );
 
 export default App;

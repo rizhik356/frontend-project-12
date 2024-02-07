@@ -78,7 +78,9 @@ const ModalAddChannel = () => {
             <Form.Label
               visuallyHidden
               htmlFor="name"
-            />
+            >
+              {t('services.channelName')}
+            </Form.Label>
             <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
           </Form>
         </Modal.Body>

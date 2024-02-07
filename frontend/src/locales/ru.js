@@ -49,6 +49,7 @@ export default {
       nickname: 'Ваш ник',
       editChannel: 'Управление каналом',
       loading: 'Загрузка...',
+      channelName: 'Имя канала',
     },
     messages: {
       counter: {

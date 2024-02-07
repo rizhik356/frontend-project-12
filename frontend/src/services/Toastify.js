@@ -1,4 +1,5 @@
-/* eslint-disable functional/no-class */
+/* eslint-disable functional/no-classes */
+
 import { toast } from 'react-toastify';
 
 export default class Toastify {

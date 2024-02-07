@@ -16,6 +16,7 @@ export default {
       userUnique: 'Такой пользователь уже существует',
       invalidUserData: 'Неверные имя пользователя или пароль',
       network: 'Ошибка соединения',
+      NotFind: 'TIGRA не может найти эту страницу',
     },
     modals: {
       addChannel: 'Добавить канал',
@@ -50,6 +51,7 @@ export default {
       editChannel: 'Управление каналом',
       loading: 'Загрузка...',
       channelName: 'Имя канала',
+      returnToMain: 'Вернуться на главную страницу',
     },
     messages: {
       counter: {

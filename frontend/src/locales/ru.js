@@ -36,7 +36,7 @@ export default {
       channels: 'Каналы',
       logIn: 'Войти',
       logOut: 'Выйти',
-      registration: 'Регистрация',
+      registration: 'Легистрация',
       authorization: 'Авторизация',
       toRegistrate: 'Зарегистрироваться',
       toAuthorizate: 'Авторизоваться',

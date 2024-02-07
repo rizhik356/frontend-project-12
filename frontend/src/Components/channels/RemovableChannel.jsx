@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';

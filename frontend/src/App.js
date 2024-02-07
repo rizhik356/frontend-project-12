@@ -66,7 +66,7 @@ const App = () => (
           <BrowserRouter>
             <Navbar bg="light" expand="lg">
               <Container>
-                <Navbar.Brand as={Link} to="/">TIGRA Chat</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">Hexlet Chat</Navbar.Brand>
                 <AuthButton />
               </Container>
             </Navbar>

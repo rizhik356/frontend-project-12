@@ -8,6 +8,11 @@ import { actions as messagesActions } from './slices/messagesSlice.js';
 import { actions as channelsActions } from './slices/channelsSlice.js';
 import App from './App.js';
 
+import 'react-toastify/dist/ReactToastify.css';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
+
 i18next
   .use(initReactI18next)
   .init({
@@ -39,9 +44,11 @@ const RunApp = () => {
   }, []);
 
   return (
+
     <I18nextProvider i18n={i18next}>
       <App />
     </I18nextProvider>
+
   );
 };
 

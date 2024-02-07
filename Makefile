@@ -15,6 +15,3 @@ deploy:
 
 start:
 	make start-backend & make start-frontend
-
-build: 
-	cd frontend && make build

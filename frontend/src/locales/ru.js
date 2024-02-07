@@ -22,7 +22,7 @@ export default {
       renameChannel: 'Переименовать канал',
       removeChannel: 'Удалить канал',
       renameSuccess: 'Канал переименован',
-      addSuccess: 'Канал добавлен',
+      addSuccess: 'Канал создан',
       removeSuccess: 'Канал удален',
     },
     services: {

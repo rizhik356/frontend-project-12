@@ -5,6 +5,7 @@ const initialState = {
   messages: [],
   currentChannelId: 1,
   defaultChannelId: 1,
+  lastAddChannelName: '',
 };
 
 const channelsSlice = createSlice({
@@ -16,11 +17,17 @@ const channelsSlice = createSlice({
       state.currentChannelId = payload.currentChannelId;
       state.defaultChannelId = payload.currentChannelId;
     },
+    setLastAddChannelName: (state, { payload }) => {
+      state.lastAddChannelName = payload.name;
+    },
     changeCurrentId: (state, { payload }) => {
       state.currentChannelId = payload.currentChannelId;
     },
     addChannel: (state, { payload }) => {
       state.channels.push(payload);
+      if (state.lastAddChannelName === payload.name) {
+        state.currentChannelId = payload.id;
+      }
     },
     renameChannel: (state, { payload }) => {
       state.channels.find((channel) => channel.id === payload.id).name = payload.name;

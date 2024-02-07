@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import socket from '../../../services';
 import ButtonAddChanel from '../../ButtonAddChanel';
 import Toastify from '../../../services/Toastify';
+import { actions as channelsActions } from '../../../slices/channelsSlice';
 
 const ModalAddChannel = () => {
   const channels = useSelector((state) => state.channelsReducer.channels);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
   const [isDisable, setDisable] = useState(false);
@@ -45,6 +47,7 @@ const ModalAddChannel = () => {
             // eslint-disable-next-line no-use-before-define
             handleClose();
             toast.update('success', t('modals.addSuccess'));
+            dispatch(channelsActions.setLastAddChannelName({ name }));
           }
         },
       );

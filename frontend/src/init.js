@@ -32,7 +32,6 @@ const RunApp = () => {
     });
     socket.on('newChannel', (payload) => {
       dispatch(channelsActions.addChannel(payload));
-      dispatch(channelsActions.changeCurrentId({ currentChannelId: payload.id }));
     });
     socket.on('renameChannel', (payload) => {
       dispatch(channelsActions.renameChannel(payload));

@@ -17,8 +17,8 @@ const DefaultChannel = ({ props }) => {
     <Button
       type="button"
       onClick={handleClick(item.id)}
-      variant={item.id === currentChannelId ? 'success' : false}
-      className="w-100 text-start btn"
+      variant={item.id === currentChannelId ? 'secondary' : false}
+      className="w-100 rounded-0 text-start"
     >
       <span className="me-1">{t('services.channelSymbol')}</span>
       {item.name}

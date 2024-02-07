@@ -33,8 +33,8 @@ const RemovableChannel = ({ props }) => {
   return (
     <Dropdown className="d-flex" as={ButtonGroup}>
       <Button
-        variant={setVariant('success')}
-        className="w-100 text-start text-truncate"
+        variant={setVariant('secondary')}
+        className="w-100 rounded-0 text-start text-truncate"
         onClick={handleClick(item.id)}
       >
         <span className="me-1">{t('services.channelSymbol')}</span>

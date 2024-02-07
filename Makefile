@@ -15,6 +15,9 @@ deploy:
 
 start:
 	npm run start
-	
+
 build:
 	npm run build
+
+environment:
+	make start-backend & make start-frontend	

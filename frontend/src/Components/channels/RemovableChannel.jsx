@@ -40,8 +40,9 @@ const RemovableChannel = ({ props }) => {
         <span className="me-1">{t('services.channelSymbol')}</span>
         {leoProfanity(item.name)}
       </Button>
-      <span className="visually-hidden">{t('services.editChannel')}</span>
-      <Dropdown.Toggle split variant={setVariant('secondary')} id="dropdown-split-basic" />
+      <Dropdown.Toggle split variant={setVariant('secondary')} id="dropdown-split-basic">
+        <span className="visually-hidden">{t('services.editChannel')}</span>
+      </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item href="#" onClick={() => showModal('removing', item)}>{t('services.remove')}</Dropdown.Item>
         <Dropdown.Item href="#" onClick={() => showModal('renaming', item)}>{t('services.rename')}</Dropdown.Item>

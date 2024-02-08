@@ -14,7 +14,7 @@ const Page404 = () => {
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-items-center h-100">
-        <Col xxl={4} md={6} xs={12} className="d-flex justify-content-center">
+        <Col xxl={4} md={6} xs={12} className=" d-none d-md-flex justify-content-center">
           <h1 style={rotatedStyle}>404</h1>
         </Col>
         <Col className="d-flex flex-column align-items-center" xxl={4} md={6} xs={12}>

@@ -19,5 +19,5 @@ start:
 build:
 	npm run build
 
-environment:
+develop:
 	make start-backend & make start-frontend	

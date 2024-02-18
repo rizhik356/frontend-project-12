@@ -1,6 +1,14 @@
+## TIGRA Chat
+
+* [Description](#Description)
+* [Install](#Install)
+* [Develop](#Develop)
+* [Product](#Product)
+* [Demonstration](#Demonstration)
+* [Used stack](#Stack)
+
 <a name="Description"><h2>Description</h2></a>
 Tigra Chat is a simplified version of Slack chat. To get started, you need to register a new user. Remember your username and password. Further login is done using this login and password. Password reset is not possible in the future. After authorization, you have access to chats and messages. Channels are located on the left, they can be edited and added, as well as new ones can be added. The length of the channel name should be from 3 to 20 characters, names should not be repeated. Enjoy chatting!
-
 
  <a name="Install"><h2>Installation</h2></a>
  ```bash
